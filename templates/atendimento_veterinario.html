@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atendimento Veterinário - Sistema ELPA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .painel {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000012;
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        .campo label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .campo input,
+        .campo select,
+        .campo textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #aaa;
+            border-radius: 7px;
+            font: inherit;
+            box-sizing: border-box;
+        }
+
+        .campo textarea {
+            min-height: 100px;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .botao {
+            padding: 12px 20px;
+            border-radius: 7px;
+            text-decoration: none;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .salvar {
+            background: #176747;
+            color: white;
+            border: none;
+        }
+
+        .voltar {
+            background: #e8efea;
+            color: #145c43;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🐾 Sistema ELPA</h1>
+        <p>Gestão de Animais Resgatados</p>
+    </header>
+
+    <main>
+        <section class="painel">
+            <h2>Atendimento veterinário</h2>
+            <p>Registre os atendimentos realizados nos animais.</p>
+
+            {% if animais %}
+            <form method="POST" action="/atendimento-veterinario">
+
+                <div class="campo">
+                    <label for="animal_id">Animal atendido *</label>
+                    <select id="animal_id" name="animal_id" required>
+                        <option value="">Selecione um animal</option>
+                        {% for animal in animais %}
+                        <option value="{{ animal['id'] }}">
+                            {{ animal['nome'] or 'Sem nome' }}
+                            - {{ animal['especie'] }}
+                            (ID {{ animal['id'] }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="data_atendimento">
+                        Data do atendimento *
+                    </label>
+                    <input
+                        type="date"
+                        id="data_atendimento"
+                        name="data_atendimento"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="veterinario">
+                        Nome do veterinário
+                    </label>
+                    <input
+                        type="text"
+                        id="veterinario"
+                        name="veterinario"
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="descricao">
+                        Descrição do atendimento *
+                    </label>
+                    <textarea
+                        id="descricao"
+                        name="descricao"
+                        placeholder="Ex.: Consulta, vacinação, exames..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="campo">
+                    <label for="tratamento">
+                        Tratamento ou observações
+                    </label>
+                    <textarea
+                        id="tratamento"
+                        name="tratamento"
+                        placeholder="Medicamentos, orientações e cuidados"
+                    ></textarea>
+                </div>
+
+                <div class="acoes">
+                    <button type="submit" class="botao salvar">
+                        Salvar atendimento
+                    </button>
+
+                    <a href="/" class="botao voltar">
+                        Voltar ao menu
+                    </a>
+                </div>
+            </form>
+            {% else %}
+                <p>
+                    Nenhum animal cadastrado.
+                    Cadastre um animal antes de registrar um atendimento.
+                </p>
+                <a href="/cadastrar-animal" class="botao voltar">
+                    Cadastrar animal
+                </a>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

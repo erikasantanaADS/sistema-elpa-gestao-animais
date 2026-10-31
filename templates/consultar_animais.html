@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Animais - Sistema ELPA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .painel {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000012;
+        }
+
+        .tabela {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .tabela th, .tabela td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .tabela th {
+            background: #236b4b;
+            color: white;
+        }
+
+        .tabela tr:hover {
+            background: #f1f8f3;
+        }
+
+        .rolagem {
+            overflow-x: auto;
+        }
+
+        .voltar {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #236b4b;
+            color: white;
+            border-radius: 7px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🐾 Sistema ELPA</h1>
+        <p>Gestão de Animais Resgatados</p>
+    </header>
+
+    <main>
+        <section class="painel">
+            <h2>Animais cadastrados</h2>
+            <p>Consulte os animais registrados no sistema.</p>
+
+            {% if animais %}
+                <div class="rolagem">
+                    <table class="tabela">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Espécie</th>
+                                <th>Idade</th>
+                                <th>Data do resgate</th>
+                                <th>Condição de saúde</th>
+                                <th>Situação de adoção</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for animal in animais %}
+                            <tr>
+                                <td>{{ animal["id"] }}</td>
+                                <td>{{ animal["nome"] or "Não informado" }}</td>
+                                <td>{{ animal["especie"] }}</td>
+                                <td>{{ animal["idade"] or "Não informada" }}</td>
+                                <td>{{ animal["data_resgate"] }}</td>
+                                <td>{{ animal["saude"] or "Não informada" }}</td>
+                                <td>{{ animal["status"] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>Nenhum animal cadastrado até o momento.</p>
+            {% endif %}
+
+            <a class="voltar" href="/">Voltar ao menu principal</a>
+        </section>
+    </main>
+</body>
+</html>

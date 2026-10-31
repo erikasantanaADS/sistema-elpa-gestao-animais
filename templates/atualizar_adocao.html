@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Adoção - Sistema ELPA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .painel {
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000012;
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .campo select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #aaa;
+            border-radius: 7px;
+            font: inherit;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 7px;
+            background: #236b4b;
+            color: white;
+            font: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .voltar {
+            background: #e7f3eb;
+            color: #174d36;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .mensagem {
+            color: #176747;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🐾 Sistema ELPA</h1>
+        <p>Gestão de Animais Resgatados</p>
+    </header>
+
+    <main>
+        <section class="painel">
+            <h2>Atualizar situação de adoção</h2>
+            <p>Selecione um animal e informe sua nova situação.</p>
+
+            {% if mensagem %}
+                <p class="mensagem">{{ mensagem }}</p>
+            {% endif %}
+
+            {% if animais %}
+            <form method="POST" action="/atualizar-adocao">
+
+                <div class="campo">
+                    <label for="animal_id">Animal *</label>
+                    <select id="animal_id" name="animal_id" required>
+                        <option value="">Selecione um animal</option>
+
+                        {% for animal in animais %}
+                        <option value="{{ animal['id'] }}">
+                            {{ animal['nome'] or 'Sem nome' }}
+                            - {{ animal['especie'] }}
+                            (Situação atual: {{ animal['status'] }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="status">Nova situação *</label>
+                    <select id="status" name="status" required>
+                        <option value="">Selecione</option>
+                        <option value="em tratamento">
+                            Em tratamento
+                        </option>
+                        <option value="disponível para adoção">
+                            Disponível para adoção
+                        </option>
+                        <option value="adotado">
+                            Adotado
+                        </option>
+                    </select>
+                </div>
+
+                <div class="acoes">
+                    <button type="submit" class="botao">
+                        Salvar alteração
+                    </button>
+
+                    <a href="/" class="botao voltar">
+                        Voltar ao menu
+                    </a>
+                </div>
+            </form>
+            {% else %}
+                <p>Nenhum animal cadastrado no sistema.</p>
+                <a href="/cadastrar-animal" class="botao">
+                    Cadastrar animal
+                </a>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

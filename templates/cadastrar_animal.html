@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Animal - Sistema ELPA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .cadastro {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000012;
+        }
+
+        .cadastro h2 {
+            color: #145c43;
+            margin-top: 0;
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .campo input,
+        .campo select,
+        .campo textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #aaa;
+            border-radius: 7px;
+            font: inherit;
+            box-sizing: border-box;
+        }
+
+        .campo textarea {
+            min-height: 90px;
+        }
+
+        .acoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .botao {
+            padding: 12px 22px;
+            border-radius: 7px;
+            text-decoration: none;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .salvar {
+            background: #176747;
+            color: white;
+            border: none;
+        }
+
+        .cancelar {
+            background: #e8efea;
+            color: #145c43;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🐾 Sistema ELPA</h1>
+        <p>Gestão de Animais Resgatados</p>
+    </header>
+
+    <main>
+        <section class="cadastro">
+            <h2>Cadastrar animal</h2>
+            <p>Preencha as informações do animal resgatado.</p>
+
+            <form method="POST" action="/cadastrar-animal">
+
+                <div class="campo">
+                    <label for="nome">Nome do animal</label>
+                    <input type="text" id="nome" name="nome">
+                </div>
+
+                <div class="campo">
+                    <label for="especie">Espécie *</label>
+                    <select id="especie" name="especie" required>
+                        <option value="">Selecione</option>
+                        <option value="Cachorro">Cachorro</option>
+                        <option value="Gato">Gato</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="idade">Idade estimada</label>
+                    <input
+                        type="text"
+                        id="idade"
+                        name="idade"
+                        placeholder="Ex.: 2 anos"
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="data_resgate">Data do resgate *</label>
+                    <input
+                        type="date"
+                        id="data_resgate"
+                        name="data_resgate"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="saude">Condição de saúde</label>
+                    <textarea
+                        id="saude"
+                        name="saude"
+                        placeholder="Descreva a condição de saúde"
+                    ></textarea>
+                </div>
+
+                <div class="campo">
+                    <label for="status">Situação de adoção *</label>
+                    <select id="status" name="status" required>
+                        <option value="">Selecione</option>
+                        <option value="em tratamento">
+                            Em tratamento
+                        </option>
+                        <option value="disponível para adoção">
+                            Disponível para adoção
+                        </option>
+                        <option value="adotado">
+                            Adotado
+                        </option>
+                    </select>
+                </div>
+
+                <div class="acoes">
+                    <button class="botao salvar" type="submit">
+                        Salvar cadastro
+                    </button>
+
+                    <a class="botao cancelar" href="/">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </section>
+    </main>
+</body>
+</html>

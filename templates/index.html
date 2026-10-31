@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema ELPA - Gestão de Animais</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        nav a {
+            display: block;
+            background: #e7f3eb;
+            border: 1px solid #c9e1d0;
+            border-radius: 10px;
+            padding: 18px;
+            color: #174d36;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background: #d3eadb;
+        }
+
+        nav li {
+            padding: 0;
+            border: none;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🐾 Sistema ELPA</h1>
+        <p>Gestão de Animais Resgatados</p>
+    </header>
+
+    <main>
+        <h2>Bem-vindo ao Sistema ELPA!</h2>
+
+        <p>
+            Sistema acadêmico para auxiliar no cadastro,
+            acompanhamento veterinário e gestão de adoções
+            de animais resgatados.
+        </p>
+
+        <nav>
+            <h3>Menu principal</h3>
+
+            <ul>
+                <li>
+                    <a href="/cadastrar-animal">
+                        🐾 Cadastrar animal
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/consultar-animais">
+                        📋 Consultar animais
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/atendimento-veterinario">
+                        🩺 Atendimentos veterinários
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/atualizar-adocao">
+                        🏠 Situação de adoção
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/historico-veterinario">
+                        📖 Histórico veterinário
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <p><a href="/sobre">Sobre o sistema</a></p>
+    </main>
+
+    <footer>
+        <p>
+            Projeto acadêmico - Análise e Desenvolvimento de Sistemas
+        </p>
+    </footer>
+</body>
+</html>

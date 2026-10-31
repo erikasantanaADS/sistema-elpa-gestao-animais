@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico Veterinário - Sistema ELPA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .painel {
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000012;
+        }
+
+        .filtro {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 22px 0;
+            align-items: end;
+        }
+
+        .campo {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .campo label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .campo select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #aaa;
+            border-radius: 7px;
+            font: inherit;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #236b4b;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            text-decoration: none;
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .rolagem {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #236b4b;
+            color: white;
+        }
+
+        .voltar {
+            margin-top: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🐾 Sistema ELPA</h1>
+        <p>Gestão de Animais Resgatados</p>
+    </header>
+
+    <main>
+        <section class="painel">
+            <h2>Histórico veterinário</h2>
+            <p>Consulte os atendimentos realizados nos animais resgatados.</p>
+
+            <form class="filtro" method="GET"
+                  action="/historico-veterinario">
+
+                <div class="campo">
+                    <label for="animal_id">Selecione o animal</label>
+                    <select id="animal_id" name="animal_id" required>
+                        <option value="">Selecione</option>
+
+                        {% for animal in animais %}
+                        <option value="{{ animal['id'] }}"
+                            {% if animal_id == animal['id'] %}
+                                selected
+                            {% endif %}>
+                            {{ animal['nome'] or 'Sem nome' }}
+                            - {{ animal['especie'] }}
+                            (ID {{ animal['id'] }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button class="botao" type="submit">
+                    Consultar histórico
+                </button>
+            </form>
+
+            {% if animal_id %}
+                {% if atendimentos %}
+                    <div class="rolagem">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Veterinário</th>
+                                    <th>Descrição</th>
+                                    <th>Tratamento / Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for atendimento in atendimentos %}
+                                <tr>
+                                    <td>{{ atendimento['data_atendimento'] }}</td>
+                                    <td>{{ atendimento['veterinario'] or 'Não informado' }}</td>
+                                    <td>{{ atendimento['descricao'] }}</td>
+                                    <td>{{ atendimento['tratamento'] or 'Não informado' }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p>Este animal ainda não possui atendimentos registrados.</p>
+                {% endif %}
+            {% endif %}
+
+            <a class="botao voltar" href="/">
+                Voltar ao menu principal
+            </a>
+        </section>
+    </main>
+</body>
+</html>
