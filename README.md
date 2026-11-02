@@ -29,3 +29,20 @@ O Instituto Eu Luto Pelos Animais (ELPA) foi utilizado como referência para o e
 ## Estado atual
 
 A aplicação Flask já apresenta uma página inicial simples. As funcionalidades de cadastro, consulta e acompanhamento dos animais ainda estão em desenvolvimento.
+
+## Revisão técnica do MVP
+
+### Arquitetura
+O Sistema ELPA foi desenvolvido com Python e Flask, utilizando páginas HTML para a interface e SQLite para o armazenamento dos dados. A aplicação possui funcionalidades de cadastro e consulta de animais, registro de atendimentos veterinários, consulta do histórico e atualização da situação de adoção.
+
+### Legibilidade e organização
+O projeto utiliza arquivos separados para a aplicação Python, a configuração do banco de dados, as páginas HTML e os estilos CSS. Essa organização facilita a leitura, a manutenção e a evolução do sistema.
+
+### Segurança
+Durante a revisão, foi identificada a necessidade de aprimorar a segurança da aplicação, incluindo autenticação de usuários, controle de acesso, validação dos dados recebidos e desativação do modo de depuração em ambiente de produção.
+
+### Melhorias futuras
+Como evolução do MVP, estão previstas a implementação de login, a melhoria das validações, a criação de testes automatizados e o aperfeiçoamento das mensagens de erro.
+
+### Conclusão da auto-revisão
+A revisão permitiu identificar pontos positivos da estrutura atual e melhorias necessárias para futuras versões. O MVP atende às funcionalidades principais propostas para esta etapa acadêmica.
